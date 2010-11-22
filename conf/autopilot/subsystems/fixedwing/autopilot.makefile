@@ -126,6 +126,8 @@ ns_srcs 		+= $(SRC_ARCH)/sys_time_hw.c
 # UARTS
 #
 
+ns_CFLAGS		+= -DUSE_UART_TEST
+ns_srcs 		+= $(SRC_FIXEDWING)/uart.c
 ns_srcs 		+= $(SRC_ARCH)/uart_hw.c
 
 #
