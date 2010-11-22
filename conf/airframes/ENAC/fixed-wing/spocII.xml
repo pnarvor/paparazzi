@@ -10,6 +10,11 @@
 
 <airframe name="Spoc II Tiny 2.1">
 
+  <modules>
+    <load name="gsm.xml"/>
+    <load name="max3100.xml"/>
+  </modules>
+
 <!-- commands section -->
   <servos>
     <servo name="MOTOR" no="0" min="1000" neutral="1000" max="2000"/>
@@ -114,6 +119,7 @@
     <define name="DEFAULT_CIRCLE_RADIUS" value="80."/>
 
     <define name="UNLOCKED_HOME_MODE" value="TRUE"/>
+    <define name="RC_LOST_MODE" value="PPRZ_MODE_AUTO2"/>
   </section>
  
   <section name="VERTICAL CONTROL" prefix="V_CTL_">
@@ -249,6 +255,20 @@ ap.srcs += gyro.c
 
 # Current sensor
 ap.CFLAGS += -DUSE_ADC_3 -DADC_CHANNEL_CURRENT=ADC_3
+
+######### max3100
+ap.CFLAGS += -DMAX3100_FOSC=3686400 -DMAX3100_BAUD_RATE=MAX3100_B9600 -DMAX3100_IRQ_PIN=16
+#ap.CFLAGS += -DMAX3100_FOSC=1843200 -DMAX3100_BAUD_RATE=MAX3100_B9600 -DMAX3100_IRQ_PIN=16
+######### GSM
+ap.CFLAGS += -DGSM_LINK=Uart3100 -DGSM_ONOFF_LED=CAM_SWITCH_LED
+# ap.CFLAGS += -DUART1_BAUD=B9600 -DUSE_UART1 -DGSM_LINK=Uart1
+ap.CFLAGS += -DGCS_NUMBER_2=\"+33640286530\"
+ap.CFLAGS += -DGCS_NUMBER_1=\"+33640286564\"
+ap.CFLAGS += -DSAFETY_NUMBER_1=\"+33675740959\"
+ap.CFLAGS += -DGSM_CMD_LINE_TERMINATION=\'\\r\' -DGSM_RESPONSE_FORMATING=\'\\n\'
+
+########## Modules
+ap.CFLAGS += -DUSE_MODULES
 
 # Config for SITL simulation
 #include $(PAPARAZZI_SRC)/conf/autopilot/sitl.makefile
