@@ -33,6 +33,7 @@
 #include "uart_hw.h"
 #include "std.h"
 
+#ifndef USE_UART_TEST
 
 #ifdef USE_UART0
 
@@ -120,5 +121,87 @@ extern bool_t uart3_check_free_space( uint8_t len);
 #define UART3Getch          Uart3Getch
 
 #endif /* USE_UART3 */
+
+#else /* USE_UART_TEST */
+
+#define UART_RX_BUFFER_SIZE 128
+#define UART_TX_BUFFER_SIZE 128
+
+/**
+ * UART peripheral
+ */
+struct uart_periph {
+  /* Receive buffer */
+  uint8_t rx_buf[UART_RX_BUFFER_SIZE];
+  uint16_t rx_insert_idx;
+  uint16_t rx_extract_idx;
+  /* Transmit buffer */
+  uint8_t tx_buf[UART_RX_BUFFER_SIZE];
+  uint16_t tx_insert_idx;
+  uint16_t tx_extract_idx;
+  uint8_t tx_running;
+  /* UART Register */
+  void* reg_addr;
+};
+
+extern void uart_init(struct uart_periph* p);
+extern void uart_init_param(struct uart_periph* p, uint16_t baud, uint8_t mode, uint8_t fmode, char * dev);
+extern void uart_transmit(struct uart_periph* p, uint8_t data);
+extern bool_t uart_check_free_space(struct uart_periph* p, uint8_t len);
+
+#define UartChAvailable(_p) (_p.rx_insert_idx != _p.rx_extract_idx)
+
+#define UartGetch(_p) ({                                            \
+   uint8_t ret = _p.rx_buf[_p.rx_extract_idx];                   \
+   _p.rx_extract_idx = (_p.rx_extract_idx + 1)%UART_RX_BUFFER_SIZE; \
+   ret;                                                             \
+})
+
+
+#ifdef USE_UART0
+extern struct uart_periph uart0;
+extern void uart0_init(void);
+
+#define Uart0Init() uart_init(&uart0)
+#define Uart0CheckFreeSpace(_x) uart_check_free_space(&uart0, _x)
+#define Uart0Transmit(_x) uart_transmit(&uart0, _x)
+#define Uart0SendMessage() {}
+#define Uart0ChAvailable() UartChAvailable(uart0)
+#define Uart0Getch() UartGetch(uart0)
+#define Uart0TxRunning uart0.tx_running
+#define Uart0InitParam(_b, _m, _fm) uart_init_param(&uart0, _b, _m, _fm, "")
+
+#define UART0Init           Uart0Init
+#define UART0CheckFreeSpace Uart0CheckFreeSpace
+#define UART0Transmit       Uart0Transmit
+#define UART0SendMessage    Uart0SendMessage
+#define UART0ChAvailable    Uart0ChAvailable
+#define UART0Getch          Uart0Getch
+
+#endif
+
+#ifdef USE_UART1
+extern struct uart_periph uart1;
+extern void uart1_init(void);
+
+#define Uart1Init() uart_init(&uart1)
+#define Uart1CheckFreeSpace(_x) uart_check_free_space(&uart1, _x)
+#define Uart1Transmit(_x) uart_transmit(&uart1, _x)
+#define Uart1SendMessage() {}
+#define Uart1ChAvailable() UartChAvailable(uart1)
+#define Uart1Getch() UartGetch(uart1)
+#define Uart1TxRunning uart1.tx_running
+#define Uart1InitParam(_b, _m, _fm) uart_init_param(&uart1, _b, _m, _fm, "")
+
+#define UART1Init           Uart1Init
+#define UART1CheckFreeSpace Uart1CheckFreeSpace
+#define UART1Transmit       Uart1Transmit
+#define UART1SendMessage    Uart1SendMessage
+#define UART1ChAvailable    Uart1ChAvailable
+#define UART1Getch          Uart1Getch
+
+#endif
+
+#endif
 
 #endif /* UART_H */
