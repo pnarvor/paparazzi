@@ -12,6 +12,30 @@
     </fileheader>
 
     <metrics>
+        <wingarea unit="FT2"> 10.57 </wingarea>
+        <wingspan unit="FT"> 9.17 </wingspan>
+        <chord unit="FT"> 1.15 </chord>
+        <htailarea unit="FT2"> 1.69 </htailarea>
+        <htailarm unit="FT"> 3.28 </htailarm>
+        <vtailarea unit="FT2"> 1.06 </vtailarea>
+        <vtailarm unit="FT"> 0 </vtailarm>
+        <location name="AERORP" unit="IN">
+            <x> 37.4 </x>
+            <y> 0 </y>
+            <z> 0 </z>
+        </location>
+        <location name="EYEPOINT" unit="IN">
+            <x> 20 </x>
+            <y> 0 </y>
+            <z> 5 </z>
+        </location>
+        <location name="VRP" unit="IN">
+            <x> 0 </x>
+            <y> 0 </y>
+            <z> 0 </z>
+        </location>
+    </metrics>
+    <!--metrics>
         <wingarea unit="M2"> 0.21 </wingarea>
         <wingspan unit="M"> 1.5 </wingspan>
         <chord unit="M"> 0.14 </chord>
@@ -34,9 +58,9 @@
             <y> 0 </y>
             <z> 0 </z>
         </location>
-    </metrics>
+    </metrics-->
 
-    <mass_balance>
+    <!--mass_balance>
         <ixx unit="KG*M2"> 0.125 </ixx>
         <iyy unit="KG*M2"> 0.032 </iyy>
         <izz unit="KG*M2"> 0.156 </izz>
@@ -48,6 +72,20 @@
             <x> 0.067 </x>
             <y> 0 </y>
             <z> 0 </z>
+        </location>
+    </mass_balance-->
+    <mass_balance>
+        <ixx unit="SLUG*FT2"> 0.9 </ixx>
+        <iyy unit="SLUG*FT2"> 0.5 </iyy>
+        <izz unit="SLUG*FT2"> 1.1 </izz>
+        <ixy unit="SLUG*FT2"> 0 </ixy>
+        <ixz unit="SLUG*FT2"> 0 </ixz>
+        <iyz unit="SLUG*FT2"> 0 </iyz>
+        <emptywt unit="KG"> 2.0 </emptywt>
+        <location name="CG" unit="IN">
+            <x> 36.4 </x>
+            <y> 0 </y>
+            <z> 4 </z>
         </location>
     </mass_balance>
 
@@ -313,7 +351,8 @@
                 <product>
                     <property>aero/qbar-psf</property>
                     <property>metrics/Sw-sqft</property>
-                    <property>aero/alpha-deg</property>
+                      <table>
+                          <independentVar>aero/alpha-deg</independentVar>
                        <tableData>
                         -23  -0.7
                         -21  -0.9 
@@ -326,6 +365,7 @@
                           8   1.0
                           10  0.7
                        </tableData>
+                      </table>
                 </product>
 
 
