@@ -37,10 +37,13 @@
 #include "estimator.h"
 #include "ap_downlink.h"
 #include "sys_time.h"
-#include "airframe.h"
+#include "generated/airframe.h"
 
 #if defined IR_ESTIMATED_PHI_PI_4 || defined IR_ESTIMATED_PHI_MINUS_PI_4 || defined IR_ESTIMATED_THETA_PI_4
 #error "IR_ESTIMATED_PHI_PI_4 correction has been deprecated. Please remove the definition from your airframe config file"
+#endif
+#ifdef INFRARED
+#error "The flag INFRARED has been deprecated. Please replace it with USE_INFRARED."
 #endif
 
 
