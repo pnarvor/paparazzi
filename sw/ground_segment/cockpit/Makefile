@@ -28,7 +28,7 @@ OCAMLCFLAGS=-thread -ccopt -fPIC
 include ../../Makefile.ocaml
 
 INCLUDES=
-LIBS=
+LIBS= -cclib -lX11
 LIBSX=$(LIBS:.cma=.cmxa)
 
 INCLUDES=
@@ -62,7 +62,7 @@ PP_SRC = gcs.ml
 PP_CMO = $(PP_SRC:.ml=.cmo)
 PP_CMX = $(PP_SRC:.ml=.cmx)
 
-ML= gtk_setting_time.ml gtk_strip.ml horizon.ml strip.ml gtk_save_settings.ml saveSettings.ml page_settings.ml pages.ml speech.ml plugin.ml sectors.ml map2d.ml editFP.ml intruders.ml shapes.ml live.ml particules.ml papgets.ml gcs.ml
+ML= gtk_setting_time.ml gtk_strip.ml horizon.ml strip.ml gtk_save_settings.ml saveSettings.ml page_settings.ml pages.ml speech.ml plugin.ml sectors.ml map2d.ml editFP.ml intruders.ml shapes.ml live.ml particules.ml papgets.ml x11_wrapper.o gcs.ml
 MAIN=gcs
 CMO=$(ML:.ml=.cmo)
 CMX=$(ML:.ml=.cmx)
@@ -97,6 +97,10 @@ $(PP_CMX): $(PP_SRC)
 %.cmx: %.ml
 	@echo OOC $<
 	$(Q)$(OCAMLOPT) $(OCAMLCFLAGS) $(INCLUDES) $(PKG) -c $<
+
+%.o : %.c
+	@echo OC $<
+	$(Q)$(OCAMLC) $(OCAMLCFLAGS) $(INCLUDES) $(PKG) -c $<
 
 saveSettings.cmo : gtk_save_settings.cmo
 saveSettings.cmx: gtk_save_settings.cmx

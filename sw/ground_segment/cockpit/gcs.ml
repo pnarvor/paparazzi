@@ -613,6 +613,9 @@ let listen_dropped_papgets = fun (geomap:G.widget) ->
   ignore (geomap#canvas#drag#connect#data_received ~callback:(Papgets.dnd_data_received geomap#still geomap#zoom_adj))
 
 
+(** X11 multi-threaded protection **)
+external xInitThreads: unit -> unit = "ml_XInitThreads"
+
 
 (************************** MAIN ********************************************)
 let () =
@@ -621,6 +624,8 @@ let () =
     (fun x -> if !edit then file_to_edit := x else Printf.fprintf stderr "Warning: Don't do anything with '%s'\n%!" x)
     "Usage: ";
   (*                                 *)
+  xInitThreads ();
+
   if not !edit then begin
     Ivy.init "Paparazzi GCS" "READY" (fun _ _ -> ());
     Ivy.start !ivy_bus
