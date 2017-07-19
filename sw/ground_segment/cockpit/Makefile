@@ -27,8 +27,12 @@ OCAMLCFLAGS=-thread -ccopt -fPIC
 
 include ../../Makefile.ocaml
 
+CC = gcc
+
+X11WRAPPER=x11_wrapper
+
 INCLUDES=
-LIBS= -cclib -lX11
+LIBS= $(X11WRAPPER).so -dllpath $(PAPARAZZI_SRC)/sw/ground_segment/cockpit -cclib -lX11
 LIBSX=$(LIBS:.cma=.cmxa)
 
 INCLUDES=
@@ -62,7 +66,7 @@ PP_SRC = gcs.ml
 PP_CMO = $(PP_SRC:.ml=.cmo)
 PP_CMX = $(PP_SRC:.ml=.cmx)
 
-ML= gtk_setting_time.ml gtk_strip.ml horizon.ml strip.ml gtk_save_settings.ml saveSettings.ml page_settings.ml pages.ml speech.ml plugin.ml sectors.ml map2d.ml editFP.ml intruders.ml shapes.ml live.ml particules.ml papgets.ml x11_wrapper.o gcs.ml
+ML= gtk_setting_time.ml gtk_strip.ml horizon.ml strip.ml gtk_save_settings.ml saveSettings.ml page_settings.ml pages.ml speech.ml plugin.ml sectors.ml map2d.ml editFP.ml intruders.ml shapes.ml live.ml particules.ml papgets.ml $(X11WRAPPER).so gcs.ml
 MAIN=gcs
 CMO=$(ML:.ml=.cmo)
 CMX=$(ML:.ml=.cmx)
@@ -102,6 +106,10 @@ $(PP_CMX): $(PP_SRC)
 	@echo OC $<
 	$(Q)$(OCAMLC) $(OCAMLCFLAGS) $(INCLUDES) $(PKG) -c $<
 
+$(X11WRAPPER).so: $(X11WRAPPER).c
+	@echo OL $<
+	$(Q)$(CC) -shared -fPIC -lX11 -o $@ $<
+
 saveSettings.cmo : gtk_save_settings.cmo
 saveSettings.cmx: gtk_save_settings.cmx
 
@@ -125,12 +133,11 @@ compass : compass.ml
 
 
 clean:
-	$(Q)rm -f *~* *.cm* *.o *.out *.opt map2d gcs .depend gtk_strip.ml gtk_setting_time.ml gtk_save_settings.ml compass ant_track ant_track_pmm actuators
+	$(Q)rm -f *~* *.cm* *.o *.so *.out *.opt map2d gcs .depend gtk_strip.ml gtk_setting_time.ml gtk_save_settings.ml compass ant_track ant_track_pmm actuators
 
 .PHONY: all opt clean
 
 
-CC = gcc
 CFLAGS=-g -O2 -Wall $(shell pkg-config gtk+-2.0 --cflags) -fPIC
 LDFLAGS=$(shell pkg-config gtk+-2.0 --libs) -s -lglibivy -lm -lpcre
 
