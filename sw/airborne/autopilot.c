@@ -87,6 +87,23 @@ static void send_actuators(struct transport_tx *trans, struct link_device *dev)
 }
 #endif
 
+static void send_generic_com(struct transport_tx *trans, struct link_device *dev)
+{
+  struct LlaCoor_i lla = *stateGetPositionLla_i();
+  int16_t hmsl = (int16_t)stateGetPositionUtm_f()->alt;
+  uint16_t gspeed = (uint16_t)(stateGetHorizontalSpeedNorm_f() * 100.f);
+  int16_t course = (int16_t)(DegOfRad(stateGetHorizontalSpeedDir_f()) * 10.f);
+  uint16_t airspeed = (uint16_t)(stateGetAirspeed_f() * 100.f);
+  uint8_t vsupply = (uint8_t)(electrical.vsupply * 10.f);
+  uint8_t charge = (uint8_t)(electrical.charge * 10.f);
+  uint8_t throttle = (uint8_t)(100 * autopilot.throttle / MAX_PPRZ);
+  pprz_msg_send_GENERIC_COM(trans, dev, AC_ID,
+      &lla.lat, &lla.lon, &hmsl,
+      &gspeed, &course, &airspeed,
+      &vsupply, &charge, &throttle,
+      &autopilot.mode, &nav_block,
+      &autopilot.flight_time);
+}
 
 void autopilot_init(void)
 {
@@ -128,6 +145,7 @@ void autopilot_init(void)
 #ifdef RADIO_CONTROL
   register_periodic_telemetry(DefaultPeriodic, PPRZ_MSG_ID_RC, send_rc);
 #endif
+  register_periodic_telemetry(DefaultPeriodic, PPRZ_MSG_ID_GENERIC_COM, send_generic_com);
 }
 
 /** AP periodic call
