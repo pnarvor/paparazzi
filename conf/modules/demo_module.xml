@@ -4,6 +4,7 @@
   <doc>
     <description>Demo module</description>
   </doc>
+  <depends>modules/light.xml</depends>
   <header>
     <file name="demo_module.h"/>
   </header>
