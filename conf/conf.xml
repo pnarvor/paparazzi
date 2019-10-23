@@ -52,7 +52,7 @@
    flight_plan="flight_plans/nephelae/basic_neph_0.xml"
    settings="settings/fixedwing_basic.xml"
    settings_modules="modules/nav_survey_poly_osam.xml modules/nav_smooth.xml modules/nav_basic_fw.xml modules/guidance_basic_fw.xml modules/stabilization_attitude_fw.xml modules/infrared_adc.xml modules/gps.xml modules/imu_common.xml modules/tune_airspeed.xml"
-   gui_color="#6293ba"
+   gui_color="#eb4034"
   />
   <aircraft
    name="Microjet_neph_1"
@@ -63,7 +63,7 @@
    flight_plan="flight_plans/nephelae/basic_neph_1.xml"
    settings="settings/fixedwing_basic.xml"
    settings_modules="modules/nav_survey_poly_osam.xml modules/nav_smooth.xml modules/nav_basic_fw.xml modules/guidance_basic_fw.xml modules/stabilization_attitude_fw.xml modules/infrared_adc.xml modules/gps.xml modules/imu_common.xml modules/tune_airspeed.xml"
-   gui_color="#6293ba"
+   gui_color="#ebab34"
   />
   <aircraft
    name="Microjet_neph_2"
@@ -74,7 +74,7 @@
    flight_plan="flight_plans/nephelae/basic_neph_2.xml"
    settings="settings/fixedwing_basic.xml"
    settings_modules="modules/nav_survey_poly_osam.xml modules/nav_smooth.xml modules/nav_basic_fw.xml modules/guidance_basic_fw.xml modules/stabilization_attitude_fw.xml modules/infrared_adc.xml modules/gps.xml modules/imu_common.xml modules/tune_airspeed.xml"
-   gui_color="#6293ba"
+   gui_color="#34ebdc"
   />
   <aircraft
    name="Microjet_neph_3"
@@ -85,7 +85,7 @@
    flight_plan="flight_plans/nephelae/basic_neph_3.xml"
    settings="settings/fixedwing_basic.xml"
    settings_modules="modules/nav_survey_poly_osam.xml modules/nav_smooth.xml modules/nav_basic_fw.xml modules/guidance_basic_fw.xml modules/stabilization_attitude_fw.xml modules/infrared_adc.xml modules/gps.xml modules/imu_common.xml modules/tune_airspeed.xml"
-   gui_color="#6293ba"
+   gui_color="#34eb65"
   />
   <aircraft
    name="Microjet_neph_4"
@@ -96,7 +96,7 @@
    flight_plan="flight_plans/nephelae/basic_neph_4.xml"
    settings="settings/fixedwing_basic.xml"
    settings_modules="modules/nav_survey_poly_osam.xml modules/nav_smooth.xml modules/nav_basic_fw.xml modules/guidance_basic_fw.xml modules/stabilization_attitude_fw.xml modules/infrared_adc.xml modules/gps.xml modules/imu_common.xml modules/tune_airspeed.xml"
-   gui_color="#6293ba"
+   gui_color="#346eeb"
   />
   <aircraft
    name="Pelican"
